@@ -1,0 +1,100 @@
+<!doctype html>
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <link rel="stylesheet" href="./lib/codemirror/codemirror.css">
+  <link rel="stylesheet" href="./lib/codemirror/fold/foldgutter.css">
+  <link rel="stylesheet" href="./lib/codemirror/theme/dracula.css">
+  <link rel="stylesheet" href="./lib/codemirror/theme/xq-light.css">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-giJF6kkoqNQ00vy+HMDP7azOuL0xtbfIcaT9wjKHr8RbDVddVHyTfAAsrekwKmP1" crossorigin="anonymous">
+  <script src="./lib/codemirror/codemirror.js"></script>
+  <script src="./lib/codemirror/edit/matchbrackets.js"></script>
+  <script src="./lib/codemirror/edit/closebrackets.js"></script>
+  <script src="./lib/codemirror/comment/comment.js"></script>
+  <script src="./lib/codemirror/wrap/hardwrap.js"></script>
+  <script src="./lib/codemirror/fold/foldcode.js"></script>
+  <script src="./lib/codemirror/fold/brace-fold.js"></script>
+  <script src="./lib/codemirror/language/mode/javascript/javascript.js"></script>
+  <script src="./lib/codemirror/language/mode/clike/clike.js"></script>
+  <script src="./lib/codemirror/language/mode/python/python.js"></script>
+  <style>
+    .CodeMirror {
+      height: 400px;
+    }
+  </style>
+
+</head>
+
+<body>
+  <div class="main mt-5">
+    <div class="container">
+      <div class="card ">
+        <div class="card-header">
+          <div class="row">
+            <div class="col-2">
+              <div class="form-floating">
+                <select class="form-select" id="language_select">
+                  <option value="0">C++</option>
+                  <option value="1">Python</option>
+                  <option value="2">Javascript</option>
+                  <option value="3">Java</option>
+                </select>
+                <label for="floatingSelect">Select Language</label>
+              </div>
+            </div>
+            <div class="col-2">
+              <div class="form-floating">
+                <select class="form-select" id="theme_select">
+                  <option value="0">Light</option>
+                  <option value="1">Dark</option>
+                </select>
+                <label for="floatingSelect">Select Theme</label>
+              </div>
+            </div>
+          </div>
+
+        </div>
+
+        <div class="card-body p-0">
+          <div id="code_editor"></div>
+        </div>
+        <div class="card-footer float-end">
+          <!-- <div class="btn-group" role="group" aria-label="Basic example"> -->
+          <div style="float: left;">
+            <div class="form-check">
+              <input class="form-check-input" type="checkbox" value="" id="flexCheckChecked" checked>
+              <label class="form-check-label" for="flexCheckChecked">
+                Custom Input
+              </label>
+            </div>
+            <!-- <button type="button" class="btn btn-outline-primary rounded-pill">Use Example Test Cases</button> -->
+          </div>
+          <div style="float: right;">
+            <button id="run_code" type="button" class=" ml-3 mr-3 btn btn-dark rounded-pill">Run Code</button>
+            <button type="button" class="btn btn-primary rounded-pill">Submit Code</button>
+          </div>
+
+          <!-- </div> -->
+        </div>
+      </div>
+      <div id="outputDiv" class="mb-3">
+        <label class="form-label">Output</label>
+        <textarea class="form-control" id="output" rows="5"></textarea>
+      </div>
+      <div id="resultDiv" class="mb-3">
+        <label class="form-label">Result</label>
+        <textarea class="form-control" id="output" rows="5"></textarea>
+      </div>
+    </div>
+  </div>
+  <script src="./lib/js/jquery.js"></script>
+  <script src="./lib/js/script.js"></script>
+
+</body>
+
+</html>

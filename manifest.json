@@ -1,0 +1,29 @@
+{
+    "name": "CodeChef ide ",
+    "description": "Add IDE to problem page",
+    "version": "0.1",
+    "permissions": [
+        "tabs",
+        "<all_urls>"
+    ],
+    "browser_action": {
+        "default_icon": "icon.png"
+    },
+    "content_scripts": [
+        {
+            "matches": [
+                "http://codechef.com/*",
+                "https://codechef.com/*"
+            ],
+            "js": [
+                "./lib/js/jquery.js",
+                "content.js"
+            ],
+            "run_at": "document_end"
+        }
+    ],
+    "web_accessible_resources": [
+        "ide.html"
+    ],
+    "manifest_version": 2
+}
