@@ -50,8 +50,8 @@ const getRequest = (url) => {
             }
         }, false, false);
     })
-
 }
+
 function sleep(ms) {
   return new Promise(resolve => setTimeout(resolve, ms));
 }
@@ -76,15 +76,32 @@ async function getCodeSubmitStatus(solId, sendResponse) {
         await sleep(2000);
         res = await getRequest(url)
     }
-    sendResponse({
-        output: res.result_code
-    })
+    res = await new Promise((resolve, reject) => {
+        $.ajax({
+            url: `https://www.codechef.com/error_status_table/${solId}`,
+            type: 'GET',
+            headers: {
+                "X-CSRF-TOKEN": token
+            },
+            success: function (e) {
+                console.log(e);
+                resolve(e);
+            },
+            error: function (e) {
+                reject(e);
+            }
+        }, false, false);
+    });
 
+    sendResponse({
+        output: res 
+    })
 }
 
 
 
 var iframe = document.createElement('iframe');
+iframe.scrolling = "no";
 iframe.src = chrome.runtime.getURL('ide.html');
 iframe.style.cssText = 'display:block;' +
     'width:100%;height:1000px;border:0;';
