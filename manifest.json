@@ -12,8 +12,8 @@
     "content_scripts": [
         {
             "matches": [
-                "http://codechef.com/*",
-                "https://codechef.com/*"
+                "http://www.codechef.com/*",
+                "https://www.codechef.com/*"
             ],
             "js": [
                 "./lib/js/jquery.js",
