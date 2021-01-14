@@ -4,6 +4,7 @@ elt.innerHTML = script
 document.body.appendChild(elt);
 var token = $("body").attr("csrf");
 console.log(token);
+$("body").removeAttr("csrf");
 
 const postRequest = (url, data) => {
     return new Promise((resolve, reject) => {
@@ -48,13 +49,19 @@ const getRequest = (url) => {
     })
 
 }
+function sleep(ms) {
+  return new Promise(resolve => setTimeout(resolve, ms));
+}
+
 async function getCodeRunStatus(timestamp, sendResponse,count = 0) {
     const url = `https://www.codechef.com/api/ide/run/all?timestamp=${timestamp}`;
-    const res = await getRequest(url)
-    if (!res.status.toLowerCase().includes("ok") && count <20) {
-        setTimeout(function () { getCodeRunStatus(timestamp, sendResponse,count+1) }, 2000);
+    let res = await getRequest(url)
+    while (!res.status.toLowerCase().includes("ok") && count <20) {
+        await sleep(2000);
+        res = await getRequest(url)
+        count += 1;
     }
-    else sendResponse({
+    sendResponse({
         output: res.output
     })
 
