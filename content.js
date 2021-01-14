@@ -59,14 +59,19 @@ async function getCodeRunStatus(timestamp, sendResponse,count = 0) {
     })
 
 }
-var extensionOrigin = 'chrome-extension://' + chrome.runtime.id;
-if (!location.ancestorOrigins.contains(extensionOrigin)) {
-    var iframe = document.createElement('iframe');
-    iframe.src = chrome.runtime.getURL('ide.html');
-    iframe.style.cssText = 'display:block;' +
-        'width:100%;height:1000px;';
-    document.body.append(iframe);
-}
+
+var iframe = document.createElement('iframe');
+iframe.src = chrome.runtime.getURL('ide.html');
+iframe.style.cssText = 'display:block;' +
+    'width:100%;height:1000px;border:0;';
+// console.log(document);
+// sometimes document ain't loaded correctly, hence, a timeout
+setTimeout(() => {
+    let x = document.querySelector("#problem-comments > div > div")
+    console.log(document.getElementById("problem-comments"));
+    x.prepend(iframe);
+}, 1000);
+
 chrome.runtime.onMessage.addListener(
     function (request, sender, sendResponse) {
         postRequest("/api/ide/run/all", request).then((res) => {
@@ -77,6 +82,5 @@ chrome.runtime.onMessage.addListener(
 
         })
         return true;
-
-    })
+})
 
