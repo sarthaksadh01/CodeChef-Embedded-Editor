@@ -138,6 +138,18 @@ chrome.runtime.onMessage.addListener(
             })
             console.log(request);
         }
+        else if(type == "getPref"){
+            sendResponse({
+                theme:localStorage.getItem("theme"),
+                language:localStorage.getItem("language")
+            })
+
+        }
+        else if(type == "setPref"){
+            localStorage.setItem(request.change, request.value);
+            sendResponse(true);
+
+        }
         return true;
 })
 
