@@ -6,7 +6,7 @@ var token = $("body").attr("csrf");
 console.log(token);
 $("body").removeAttr("csrf");
 
-let documentPath = document.URL.split('/');
+let documentPath = document.URL.replace(/\/+$/,'').split('/');
 const problemCode = documentPath[documentPath.length - 1];
 
 const postRequest = (url, data) => {
@@ -58,6 +58,7 @@ function sleep(ms) {
 
 async function getCodeRunStatus(timestamp, sendResponse,count = 0) {
     const url = `https://www.codechef.com/api/ide/run/${problemCode}?timestamp=${timestamp}`;
+    console.log(url);
     let res = await getRequest(url)
     while (!res.status.toLowerCase().includes("ok") && count <20) {
         await sleep(2000);
@@ -76,6 +77,7 @@ async function getCodeSubmitStatus(solId, sendResponse) {
         await sleep(2000);
         res = await getRequest(url)
     }
+    let status=res;
     res = await new Promise((resolve, reject) => {
         $.ajax({
             url: `https://www.codechef.com/error_status_table/${solId}`,
@@ -94,11 +96,10 @@ async function getCodeSubmitStatus(solId, sendResponse) {
     });
 
     sendResponse({
-        output: res 
+        status: status,
+        table: res 
     })
 }
-
-
 
 var iframe = document.createElement('iframe');
 iframe.scrolling = "no";
