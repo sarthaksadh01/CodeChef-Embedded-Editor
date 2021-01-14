@@ -65,10 +65,7 @@ async function getCodeRunStatus(timestamp, sendResponse,count = 0) {
         res = await getRequest(url)
         count += 1;
     }
-    sendResponse({
-        output: res.output
-    })
-
+    sendResponse(res)
 }
 async function getCodeSubmitStatus(solId, sendResponse) {
     const url = `https://www.codechef.com/api/ide/submit?solution_id=${solId}`;
