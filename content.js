@@ -6,6 +6,9 @@ var token = $("body").attr("csrf");
 console.log(token);
 $("body").removeAttr("csrf");
 
+let documentPath = document.URL.split('/');
+const problemCode = documentPath[documentPath.length - 1];
+
 const postRequest = (url, data) => {
     return new Promise((resolve, reject) => {
         $.ajax({
@@ -54,7 +57,7 @@ function sleep(ms) {
 }
 
 async function getCodeRunStatus(timestamp, sendResponse,count = 0) {
-    const url = `https://www.codechef.com/api/ide/run/all?timestamp=${timestamp}`;
+    const url = `https://www.codechef.com/api/ide/run/${problemCode}?timestamp=${timestamp}`;
     let res = await getRequest(url)
     while (!res.status.toLowerCase().includes("ok") && count <20) {
         await sleep(2000);
@@ -66,28 +69,58 @@ async function getCodeRunStatus(timestamp, sendResponse,count = 0) {
     })
 
 }
+async function getCodeSubmitStatus(solId, sendResponse) {
+    const url = `https://www.codechef.com/api/ide/submit?solution_id=${solId}`;
+    let res = await getRequest(url)
+    while (res.result_code.toLowerCase().includes("wait")) {
+        await sleep(2000);
+        res = await getRequest(url)
+    }
+    sendResponse({
+        output: res.result_code
+    })
+
+}
+
+
 
 var iframe = document.createElement('iframe');
 iframe.src = chrome.runtime.getURL('ide.html');
 iframe.style.cssText = 'display:block;' +
     'width:100%;height:1000px;border:0;';
-// console.log(document);
-// sometimes document ain't loaded correctly, hence, a timeout
-setTimeout(() => {
+window.onload=()=>{
     let x = document.querySelector("#problem-comments > div > div")
     console.log(document.getElementById("problem-comments"));
     x.prepend(iframe);
-}, 1000);
+}
 
 chrome.runtime.onMessage.addListener(
     function (request, sender, sendResponse) {
-        postRequest("/api/ide/run/all", request).then((res) => {
-            getCodeRunStatus(res.timestamp, sendResponse);
-        }).catch((err) => {
-            console.log(err);
-            sendResponse({ output: JSON.stringify(err) });
+        const type = request.type;
+        delete request.type
+        if (type == "run") {
+            let url="/api/ide/run/"
+            url += problemCode;
+            postRequest(url, request).then((res) => {
+                getCodeRunStatus(res.timestamp, sendResponse);
+            }).catch((err) => {
+                console.log(err);
+                sendResponse({ output: JSON.stringify(err) });
+            })
+        }
+        else if (type == "submit") {
+            delete request.input;
+            console.log("submit");
+            request.problemCode = problemCode;
+            request.contestCode = "PRACTICE"
+            let url="/api/ide/submit"
+            postRequest(url, request).then((res) => {
+                if (res.status == "OK")
+                    getCodeSubmitStatus(res.upid, sendResponse);
 
-        })
+            })
+            console.log(request);
+        }
         return true;
 })
 
