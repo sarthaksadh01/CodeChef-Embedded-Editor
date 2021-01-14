@@ -139,15 +139,28 @@ chrome.runtime.onMessage.addListener(
             console.log(request);
         }
         else if(type == "getPref"){
+            let lang = localStorage.getItem("language")
+            let langName = lang?JSON.parse(lang).name:""
             sendResponse({
                 theme:localStorage.getItem("theme"),
-                language:localStorage.getItem("language")
+                language:lang,
+                code:lang?localStorage.getItem(`${problemCode}_${langName}`):""
             })
 
         }
         else if(type == "setPref"){
             localStorage.setItem(request.change, request.value);
             sendResponse(true);
+        }
+        else if(type == "saveCode"){
+            localStorage.setItem(`${problemCode}_${request.language}`,request.code);
+            sendResponse(true);
+
+        }
+        else if(type == "getCode"){
+            sendResponse({
+                code:localStorage.getItem(`${problemCode}_${request.language}`)
+            });
 
         }
         return true;
