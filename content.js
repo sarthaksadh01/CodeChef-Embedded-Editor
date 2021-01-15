@@ -103,7 +103,7 @@ var iframe = document.createElement('iframe');
 iframe.scrolling = "no";
 iframe.src = chrome.runtime.getURL('ide.html');
 iframe.style.cssText = 'display:block;' +
-    'width:100%;height:1000px;border:0;';
+    'width:100%;border:0;';
 window.onload = () => {
     let x = document.querySelector("#problem-comments > div > div")
     console.log(document.getElementById("problem-comments"));
@@ -119,9 +119,12 @@ window.onload = () => {
             contestCode = documentPath[documentPath.length - 3];
         console.log(contestCode);
         console.log(buttonText);
-
     }
 }
+
+function resizeIframe(iframe,len) {
+    iframe.height = len + "px";
+ }
 
 chrome.runtime.onMessage.addListener(
     function (request, sender, sendResponse) {
@@ -152,6 +155,11 @@ chrome.runtime.onMessage.addListener(
             })
             console.log(request);
         }
+        else if (type == "resize") {
+            console.log(request);
+            resizeIframe(iframe,request.len);
+            sendResponse({status:"OK"})
+        }
         else if (type == "getPref") {
             let lang = localStorage.getItem("language")
             let langName = lang ? JSON.parse(lang).name : ""
@@ -179,4 +187,6 @@ chrome.runtime.onMessage.addListener(
         }
         return true;
     })
+
+resizeIframe(iframe,1000);
 
