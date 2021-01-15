@@ -8,6 +8,10 @@ $("body").removeAttr("csrf");
 
 let documentPath = document.URL.replace(/\/+$/,'').split('/');
 const problemCode = documentPath[documentPath.length - 1];
+var contestCode = documentPath[documentPath.length - 3];
+if (contestCode.includes("codechef.com"))
+    contestCode = "PRACTICE";
+console.log(contestCode);
 
 const postRequest = (url, data) => {
     return new Promise((resolve, reject) => {
@@ -108,6 +112,9 @@ window.onload=()=>{
     console.log(document.getElementById("problem-comments"));
     x.prepend(iframe);
     document.querySelector("#problem-statement > div").hidden = true;
+    let text=$("#problem-statement > div").text().trim()
+    if (text.toLowerCase().includes("practice"))
+        contestCode="PRACTICE"
 }
 
 chrome.runtime.onMessage.addListener(
@@ -128,7 +135,7 @@ chrome.runtime.onMessage.addListener(
             delete request.input;
             console.log("submit");
             request.problemCode = problemCode;
-            request.contestCode = "PRACTICE"
+            request.contestCode = contestCode;
             let url="/api/ide/submit"
             postRequest(url, request).then((res) => {
                 if (res.status == "OK")
