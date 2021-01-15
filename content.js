@@ -8,10 +8,17 @@ $("body").removeAttr("csrf");
 
 let documentPath = document.URL.replace(/\/+$/,'').split('/');
 const problemCode = documentPath[documentPath.length - 1];
-var contestCode = documentPath[documentPath.length - 3];
-if (contestCode.includes("codechef.com"))
+var contestCode;
+if(documentPath.length == 5)
     contestCode = "PRACTICE";
-console.log(contestCode);
+else{
+    let buttonText = $(".button.blue.right")[0].text;
+    if(buttonText == "Submit")
+        contestCode = "PRACTICE";
+    else
+        contestCode = documentPath[documentPath.length-3];
+
+}
 
 const postRequest = (url, data) => {
     return new Promise((resolve, reject) => {
