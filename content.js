@@ -132,7 +132,9 @@ chrome.runtime.onMessage.addListener(
             postRequest(url, request).then((res) => {
                 if (res.status == "OK")
                     getCodeSubmitStatus(res.upid, sendResponse);
-
+                else if (res.status == "error") {
+                    sendResponse(res);
+                }
             })
             console.log(request);
         }

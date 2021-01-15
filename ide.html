@@ -56,6 +56,9 @@
                 <label for="floatingSelect">Select Theme</label>
               </div>
             </div>
+            <div class="col-1 align-self-center" style="float:right;">
+            <img src="" width="40" class="img-thumbnail" id="statusImgs">
+            </div>
           </div>
 
         </div>
@@ -82,13 +85,17 @@
         </div>
       </div>
       <div id="statsDiv" class="row">
-        <div id="memoryDiv" class="col-3">
+        <div id="memoryDiv" class="col-2">
         <button id="memory" class="btn-warning" disabled></button>
         <label for="memory">Memory(KB)</label>
         </div>
-        <div id="timeDiv" class="col-3">
+        <div id="timeDiv" class="col-2">
         <button id="time" class="btn-primary" disabled></button>
         <label for="time">Time(s)</label>
+        </div>
+        <div id="signalDiv" class="col-2">
+        <button id="signal" class="btn-secondary" disabled></button>
+        <label for="time">Status</label>
         </div>
       </div>
       <div id="errorDiv"></div>
