@@ -99,32 +99,56 @@ async function getCodeSubmitStatus(solId, sendResponse) {
     })
 }
 
-var iframe = document.createElement('iframe');
-iframe.scrolling = "no";
-iframe.src = chrome.runtime.getURL('ide.html');
-iframe.style.cssText = 'display:block;' +
-    'width:100%;border:0;';
-window.onload = () => {
-    let x = document.querySelector("#problem-comments > div > div")
-    console.log(document.getElementById("problem-comments"));
-    x.prepend(iframe);
-    document.querySelector("#problem-statement > div").hidden = true;
-    if (documentPath.length == 5)
-        contestCode = "PRACTICE";
-    else {
-        let buttonText = $(".button.blue.right")[0].text;
-        if(buttonText.toLowerCase().includes("practice"))
-            contestCode = "PRACTICE";     
-        else
-            contestCode = documentPath[documentPath.length - 3];
-        console.log(contestCode);
-        console.log(buttonText);
-    }
+var iframe;
+
+const resizeIframe = (iframe, len)=>{
+    iframe.height = len + "px";
 }
 
-function resizeIframe(iframe,len) {
-    iframe.height = len + "px";
- }
+
+const insertIframe = () => {
+
+    iframe = document.createElement('iframe');
+    iframe.scrolling = "no";
+    iframe.src = chrome.runtime.getURL('ide.html');
+    iframe.style.cssText = 'display:block;' +
+        'width:100%;border:0;';
+    window.onload = () => {
+        let x = document.querySelector("#problem-comments > div > div")
+        console.log(document.getElementById("problem-comments"));
+        x.prepend(iframe);
+        document.querySelector("#problem-statement > div").hidden = true;
+        if (documentPath.length == 5)
+            contestCode = "PRACTICE";
+        else {
+            let buttonText = $(".button.blue.right")[0].text;
+            if (buttonText.toLowerCase().includes("practice"))
+                contestCode = "PRACTICE";
+            else
+                contestCode = documentPath[documentPath.length - 3];
+            console.log(contestCode);
+            console.log(buttonText);
+        }
+
+        resizeIframe(iframe, 1000);
+    }
+
+}
+
+// wait for comments div
+var waitForEl = function(selector, callback) {
+    if (jQuery(selector).length) {
+      callback();
+    } else {
+      setTimeout(function() {
+        waitForEl(selector, callback);
+      }, 100);
+    }
+};
+
+waitForEl($("#problem-statement > div"),insertIframe);
+
+
 
 chrome.runtime.onMessage.addListener(
     function (request, sender, sendResponse) {
@@ -157,8 +181,8 @@ chrome.runtime.onMessage.addListener(
         }
         else if (type == "resize") {
             console.log(request);
-            resizeIframe(iframe,request.len);
-            sendResponse({status:"OK"})
+            resizeIframe(iframe, request.len);
+            sendResponse({ status: "OK" })
         }
         else if (type == "getPref") {
             let lang = localStorage.getItem("language")
@@ -188,5 +212,5 @@ chrome.runtime.onMessage.addListener(
         return true;
     })
 
-resizeIframe(iframe,1000);
+
 
