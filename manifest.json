@@ -4,7 +4,8 @@
     "version": "0.1",
     "permissions": [
         "tabs",
-        "<all_urls>"
+        "<all_urls>",
+        "webNavigation"
     ],
     "browser_action": {
         "default_icon": "icon.png"
@@ -22,6 +23,10 @@
             "run_at": "document_end"
         }
     ],
+    "background" : {
+      "scripts": ["background.js"],
+      "persistent": true
+    },
     "web_accessible_resources": [
         "ide.html"
     ],
