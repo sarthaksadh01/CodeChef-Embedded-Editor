@@ -6,19 +6,9 @@ var token = $("body").attr("csrf");
 console.log(token);
 $("body").removeAttr("csrf");
 
-let documentPath = document.URL.replace(/\/+$/,'').split('/');
+let documentPath = document.URL.replace(/\/+$/, '').split('/');
 const problemCode = documentPath[documentPath.length - 1];
 var contestCode;
-if(documentPath.length == 5)
-    contestCode = "PRACTICE";
-else{
-    let buttonText = $(".button.blue.right")[0].text;
-    if(buttonText == "Submit")
-        contestCode = "PRACTICE";
-    else
-        contestCode = documentPath[documentPath.length-3];
-
-}
 
 const postRequest = (url, data) => {
     return new Promise((resolve, reject) => {
@@ -64,14 +54,14 @@ const getRequest = (url) => {
 }
 
 function sleep(ms) {
-  return new Promise(resolve => setTimeout(resolve, ms));
+    return new Promise(resolve => setTimeout(resolve, ms));
 }
 
-async function getCodeRunStatus(timestamp, sendResponse,count = 0) {
+async function getCodeRunStatus(timestamp, sendResponse, count = 0) {
     const url = `https://www.codechef.com/api/ide/run/${problemCode}?timestamp=${timestamp}`;
     console.log(url);
     let res = await getRequest(url)
-    while (!res.status.toLowerCase().includes("ok") && count <20) {
+    while (!res.status.toLowerCase().includes("ok") && count < 20) {
         await sleep(2000);
         res = await getRequest(url)
         count += 1;
@@ -85,7 +75,7 @@ async function getCodeSubmitStatus(solId, sendResponse) {
         await sleep(2000);
         res = await getRequest(url)
     }
-    let status=res;
+    let status = res;
     res = await new Promise((resolve, reject) => {
         $.ajax({
             url: `https://www.codechef.com/error_status_table/${solId}`,
@@ -105,7 +95,7 @@ async function getCodeSubmitStatus(solId, sendResponse) {
 
     sendResponse({
         status: status,
-        table: res 
+        table: res
     })
 }
 
@@ -114,14 +104,23 @@ iframe.scrolling = "no";
 iframe.src = chrome.runtime.getURL('ide.html');
 iframe.style.cssText = 'display:block;' +
     'width:100%;height:1000px;border:0;';
-window.onload=()=>{
+window.onload = () => {
     let x = document.querySelector("#problem-comments > div > div")
     console.log(document.getElementById("problem-comments"));
     x.prepend(iframe);
     document.querySelector("#problem-statement > div").hidden = true;
-    let text=$("#problem-statement > div").text().trim()
-    if (text.toLowerCase().includes("practice"))
-        contestCode="PRACTICE"
+    if (documentPath.length == 5)
+        contestCode = "PRACTICE";
+    else {
+        let buttonText = $(".button.blue.right")[0].text;
+        if(buttonText.toLowerCase().includes("practice"))
+            contestCode = "PRACTICE";     
+        else
+            contestCode = documentPath[documentPath.length - 3];
+        console.log(contestCode);
+        console.log(buttonText);
+
+    }
 }
 
 chrome.runtime.onMessage.addListener(
@@ -129,7 +128,7 @@ chrome.runtime.onMessage.addListener(
         const type = request.type;
         delete request.type
         if (type == "run") {
-            let url="/api/ide/run/"
+            let url = "/api/ide/run/"
             url += problemCode;
             postRequest(url, request).then((res) => {
                 getCodeRunStatus(res.timestamp, sendResponse);
@@ -143,7 +142,7 @@ chrome.runtime.onMessage.addListener(
             console.log("submit");
             request.problemCode = problemCode;
             request.contestCode = contestCode;
-            let url="/api/ide/submit"
+            let url = "/api/ide/submit"
             postRequest(url, request).then((res) => {
                 if (res.status == "OK")
                     getCodeSubmitStatus(res.upid, sendResponse);
@@ -153,31 +152,31 @@ chrome.runtime.onMessage.addListener(
             })
             console.log(request);
         }
-        else if(type == "getPref"){
+        else if (type == "getPref") {
             let lang = localStorage.getItem("language")
-            let langName = lang?JSON.parse(lang).name:""
+            let langName = lang ? JSON.parse(lang).name : ""
             sendResponse({
-                theme:localStorage.getItem("theme"),
-                language:lang,
-                code:lang?localStorage.getItem(`${problemCode}_${langName}`):""
+                theme: localStorage.getItem("theme"),
+                language: lang,
+                code: lang ? localStorage.getItem(`${problemCode}_${langName}`) : ""
             })
 
         }
-        else if(type == "setPref"){
+        else if (type == "setPref") {
             localStorage.setItem(request.change, request.value);
             sendResponse(true);
         }
-        else if(type == "saveCode"){
-            localStorage.setItem(`${problemCode}_${request.language}`,request.code);
+        else if (type == "saveCode") {
+            localStorage.setItem(`${problemCode}_${request.language}`, request.code);
             sendResponse(true);
 
         }
-        else if(type == "getCode"){
+        else if (type == "getCode") {
             sendResponse({
-                code:localStorage.getItem(`${problemCode}_${request.language}`)
+                code: localStorage.getItem(`${problemCode}_${request.language}`)
             });
 
         }
         return true;
-})
+    })
 
