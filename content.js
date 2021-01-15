@@ -107,6 +107,7 @@ window.onload=()=>{
     let x = document.querySelector("#problem-comments > div > div")
     console.log(document.getElementById("problem-comments"));
     x.prepend(iframe);
+    document.querySelector("#problem-statement > div").hidden = true;
 }
 
 chrome.runtime.onMessage.addListener(
