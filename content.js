@@ -111,8 +111,8 @@ async function getCodeSubmitStatus(solId, sendResponse) {
 }
 
 var iframe;
-let inserted=document.createElement("p")
-inserted.id = "code-editor-inserted";
+let inserted = document.createElement('p');
+inserted.id = 'code-editor-inserted';
 inserted.hidden = true;
 
 const insertIframe = () => {
@@ -122,6 +122,7 @@ const insertIframe = () => {
   iframe.scrolling = 'no';
   iframe.src = chrome.runtime.getURL('ide.html');
   iframe.style.cssText = 'display:block;' + 'width:100%;border:0;';
+
   let x = document.querySelector('#problem-comments > div > div');
   console.log(document.getElementById('problem-comments'));
   x.prepend(iframe);
@@ -133,8 +134,8 @@ const insertIframe = () => {
     else contestCode = documentPath[documentPath.length - 3];
     console.log(contestCode);
     console.log(buttonText);
-    resizeIframe(iframe, 1000);
   }
+  resizeIframe(iframe, 1000);
 };
 const waitForEl = function (selector, callback) {
   let x = document.querySelector(selector);
