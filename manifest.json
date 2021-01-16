@@ -16,7 +16,9 @@
       "persistent": true
     },
     "web_accessible_resources": [
-        "ide.html"
+        "ide.html",
+        "./lib/js/common_functions.js",
+        "./lib/js/config.js"
     ],
     "manifest_version": 2
 }
