@@ -1,0 +1,19 @@
+name: npm linter
+
+on: [push]
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - run: |
+          npm install
+          npm run fix-lint
+          if [[  $(git diff | tail | wc -l) -ne 0 ]]
+          then
+              git add .
+              git config user.name github-actions
+              git config user.email github-actions@github.com
+              git commit -m "Lint-Commit"
+              git push
+          fi
