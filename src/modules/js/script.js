@@ -1,6 +1,6 @@
 
-import { saveThemePref, saveCode, saveLanguagePref, setStats, disableButton, enableButton, selectedTheme, selectedLanguage, editor, changeLangUtil, sendMessage, changeThemeUtil,resizeIframeRequest } from "./common_functions.js";
-import { themeCode, languageCode, statusImgs, } from "./config.js";
+import { saveThemePref, saveCode, saveLanguagePref, setStats, disableButton, enableButton, selectedTheme, selectedLanguage, editor, changeLangUtil, sendMessage, changeThemeUtil,resizeIframeRequest,resetStatus } from "./common_functions.js";
+import { themeCode, languageCode } from "./config.js";
 
 var isCustomInput = false;
 var isLoading = false;
@@ -8,13 +8,12 @@ var isLoading = false;
 $("#timeDiv").hide();
 $("#memoryDiv").hide();
 $("#signalDiv").hide();
+$("#statusDiv").hide();
 $("#run_code_loading").hide();
 $("#submit_code_loading").hide();
 
 $("#submit_code").click(function () {
-  document.querySelector("#statusImgs").src = "";
-  document.querySelector("#statusImgs").title = "";
-  document.querySelector("#imgLabel").innerHTML = "";
+  resetStatus();
   if (isLoading) return;
   disableButton();
   isLoading = true;
@@ -39,12 +38,6 @@ $("#submit_code").click(function () {
       console.log(response.status);
       $("#outputDiv").hide();
       $("#errorDiv").show();
-      document.querySelector("#statusImgs").src =
-        statusImgs[response.status.result_code].url;
-      document.querySelector("#statusImgs").title =
-        statusImgs[response.status.result_code].message;
-      document.querySelector("#imgLabel").innerHTML =
-        statusImgs[response.status.result_code].message;
       if (response.status.result_code != "compile") {
         let tableDiv = document.querySelector("#errorDiv");
         tableDiv.innerHTML = response.table;
@@ -65,9 +58,7 @@ $("#submit_code").click(function () {
 });
 
 $("#run_code").click(function () {
-  document.querySelector("#statusImgs").src = "";
-  document.querySelector("#statusImgs").title = "";
-  document.querySelector("#imgLabel").innerHTML = "";
+  resetStatus();
   if (isLoading) return;
   disableButton();
   isLoading = true;

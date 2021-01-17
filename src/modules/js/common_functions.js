@@ -1,4 +1,4 @@
-import { themeCode, languageCode, signal_table } from "./config.js";
+import { themeCode, languageCode, signal_table,statusImgs } from "./config.js";
 var selectedLanguage = languageCode[0];
 var selectedTheme = themeCode[0];
 var editor = CodeMirror(document.getElementById("code_editor"), {
@@ -88,7 +88,25 @@ const resizeIframeRequest = () => {
     })
 }
 
+const resetStatus = () => {
+        document.querySelector("#statusImgs").src =
+            document.querySelector("#statusImgs").title =
+            document.querySelector("#imgLabel").innerHTML =
+            document.querySelector("#statusBtn").innerHTML = "";
+    $("#statusDiv").hide();
+}
+const setStatus = (result_code, reset=0) => {
+    document.querySelector("#statusImgs").src =
+        statusImgs[result_code].url;
+    document.querySelector("#statusImgs").title =
+    document.querySelector("#imgLabel").innerHTML =
+    document.querySelector("#statusBtn").innerHTML =
+        statusImgs[result_code].message;
+    $("#statusDiv").show();
+}
+
 const setStats = (res) => {
+    console.log(res);
     if (res.time) {
         document.querySelector("#time").innerHTML = res.time;
         $("#timeDiv").show();
@@ -108,6 +126,12 @@ const setStats = (res) => {
             document.querySelector("#signal").innerHTML = signal_table[res.signal];
         else document.querySelector("#signal").innerHTML = res.signal;
     } else $("#signalDiv").hide();
+    if (res.result_code) {
+        setStatus(res.result_code);        
+    }
+    else {
+        resetStatus();
+    }
     resizeIframeRequest();
 }
 
@@ -136,4 +160,5 @@ export {
     sendMessage,
     changeThemeUtil,
     resizeIframeRequest,
+    resetStatus
 }
