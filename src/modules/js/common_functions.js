@@ -81,6 +81,13 @@ const saveThemePref = (theme) => {
     
 };
 
+const resizeIframeRequest = () => {
+    sendMessage({
+        len: document.body.scrollHeight,
+        type: "resize",
+    })
+}
+
 const setStats = (res) => {
     if (res.time) {
         document.querySelector("#time").innerHTML = res.time;
@@ -101,10 +108,7 @@ const setStats = (res) => {
             document.querySelector("#signal").innerHTML = signal_table[res.signal];
         else document.querySelector("#signal").innerHTML = res.signal;
     } else $("#signalDiv").hide();
-    sendMessage({
-        len: document.body.scrollHeight,
-        type: "resize",
-    })
+    resizeIframeRequest();
 }
 
 const disableButton = () => {
@@ -130,5 +134,6 @@ export {
     editor,
     changeLangUtil,
     sendMessage,
-    changeThemeUtil
+    changeThemeUtil,
+    resizeIframeRequest,
 }

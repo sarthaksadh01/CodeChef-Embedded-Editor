@@ -1,5 +1,5 @@
 
-import { saveThemePref, saveCode, saveLanguagePref, setStats, disableButton, enableButton, selectedTheme, selectedLanguage, editor, changeLangUtil, sendMessage, changeThemeUtil } from "./common_functions.js";
+import { saveThemePref, saveCode, saveLanguagePref, setStats, disableButton, enableButton, selectedTheme, selectedLanguage, editor, changeLangUtil, sendMessage, changeThemeUtil,resizeIframeRequest } from "./common_functions.js";
 import { themeCode, languageCode, statusImgs, } from "./config.js";
 
 var isCustomInput = false;
@@ -56,6 +56,8 @@ $("#submit_code").click(function () {
         // use response.status.error_link and extract the error message from the webpage
       }
       setStats(response.status);
+      document.querySelector("#customInput").checked = false;
+      $("#inputDiv").hide()
     }
 
   })
@@ -144,6 +146,7 @@ customInput.onchange = () => {
     isCustomInput = false;
     $("#inputDiv").hide();
   }
+  resizeIframeRequest();
 };
 
 editor.on("keyup", function (cm, event) {
