@@ -122,7 +122,9 @@ const goToEditorButton = () => {
   btn.innerHTML = 'Go To Editor';
   btn.onclick = (e) => {
     e.preventDefault();
-    document.getElementById('code-editor').scrollIntoView();
+    document
+        .getElementById('code-editor')
+        .scrollIntoView({behavior: 'smooth'});
   };
   document
       .querySelector(
