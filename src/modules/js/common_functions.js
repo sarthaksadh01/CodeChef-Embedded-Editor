@@ -1,4 +1,4 @@
-import { themeCode, languageCode, signal_table,statusImgs } from "./config.js";
+import { themeCode, languageCode, signal_table, statusImgs } from "./config.js";
 var selectedLanguage = languageCode[0];
 var selectedTheme = themeCode[0];
 var editor = CodeMirror(document.getElementById("code_editor"), {
@@ -63,10 +63,10 @@ const saveLanguagePref = (language) => {
         type: "setPref",
         change: "language",
         value: JSON.stringify(selectedLanguage),
-    },).then((response)=>{
+    }).then((response) => {
         editor.setOption("mode", selectedLanguage.mode);
     })
-   
+
 };
 
 const saveThemePref = (theme) => {
@@ -75,10 +75,10 @@ const saveThemePref = (theme) => {
         type: "setPref",
         change: "theme",
         value: selectedTheme,
-    },).then((response)=>{
+    }).then((response) => {
         editor.setOption("theme", selectedTheme);
     })
-    
+
 };
 
 const resizeIframeRequest = () => {
@@ -89,18 +89,21 @@ const resizeIframeRequest = () => {
 }
 
 const resetStatus = () => {
-        document.querySelector("#statusImgs").src =
-            document.querySelector("#statusImgs").title =
-            document.querySelector("#imgLabel").innerHTML =
-            document.querySelector("#statusBtn").innerHTML = "";
+    document.querySelector("#statusImgs").src =
+        document.querySelector("#statusImgs").title =
+        document.querySelector("#imgLabel").innerHTML =
+        document.querySelector("#res_image").src =
+        document.querySelector("#res_text").innerHTML = ""
+    // document.querySelector("#statusBtn").innerHTML = "";
     $("#statusDiv").hide();
 }
-const setStatus = (result_code, reset=0) => {
+const setStatus = (result_code, reset = 0) => {
     document.querySelector("#statusImgs").src =
+        document.querySelector("#res_image").src =
         statusImgs[result_code].url;
     document.querySelector("#statusImgs").title =
-    document.querySelector("#imgLabel").innerHTML =
-    document.querySelector("#statusBtn").innerHTML =
+        document.querySelector("#imgLabel").innerHTML =
+        document.querySelector("#res_text").innerHTML =
         statusImgs[result_code].message;
     $("#statusDiv").show();
 }
@@ -127,7 +130,7 @@ const setStats = (res) => {
         else document.querySelector("#signal").innerHTML = res.signal;
     } else $("#signalDiv").hide();
     if (res.result_code) {
-        setStatus(res.result_code);        
+        setStatus(res.result_code);
     }
     else {
         resetStatus();
