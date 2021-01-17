@@ -15,7 +15,7 @@ chrome.webNavigation.onHistoryStateUpdated.addListener(function (details) {
           // chrome.tabs.executeScript(details.tabId, { code: "setTimeout(()=>{insertIframe();},2000);" }, () => {
           chrome.tabs.executeScript(
             details.tabId,
-            {file: 'dominsert.js'},
+            {file: './src/dominsert.js'},
             () => {
               console.log('only dominsert');
             },
