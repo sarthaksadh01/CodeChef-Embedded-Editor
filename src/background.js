@@ -29,15 +29,15 @@ chrome.webNavigation.onHistoryStateUpdated.addListener(function (details) {
           console.log('here');
           chrome.tabs.executeScript(
             details.tabId,
-            {file: './lib/js/jquery.js'},
+            {file: './src/lib/js/jquery.js'},
             () => {
               chrome.tabs.executeScript(
                 details.tabId,
-                {file: 'content.js'},
+                {file: './src/content.js'},
                 () => {
                   chrome.tabs.executeScript(
                     details.tabId,
-                    {file: 'dominsert.js'},
+                    {file: './src/dominsert.js'},
                     () => {
                       console.log('full insert');
                     },

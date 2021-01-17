@@ -120,7 +120,7 @@ const insertIframe = () => {
     problemCode = documentPath[documentPath.length - 1];
     iframe = document.createElement('iframe');
     iframe.scrolling = 'no';
-    iframe.src = chrome.runtime.getURL('ide.html');
+    iframe.src = chrome.runtime.getURL('./src/ide.html');
     iframe.style.cssText = 'display:block;' + 'width:100%;border:0;';
 
     let x = document.querySelector('#problem-comments > div > div');
