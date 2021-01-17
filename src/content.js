@@ -116,11 +116,26 @@ const inserted = document.createElement('p');
 inserted.id = 'code-editor-inserted';
 inserted.hidden = true;
 
+const goToEditorButton = () => {
+  const btn = document.createElement('a');
+  btn.classList.add('button', 'right', 'red');
+  btn.innerHTML = 'Go To Editor';
+  btn.onclick = (e) => {
+    e.preventDefault();
+    document.getElementById('code-editor').scrollIntoView();
+  };
+  document
+      .querySelector(
+          '#content-regions > header > div > div.large-12.columns > h1',
+      )
+      .append(btn);
+};
 const insertIframe = () => {
   documentPath = document.URL.replace(/\/+$/, '').split('/');
   problemCode = documentPath[documentPath.length - 1];
   iframe = document.createElement('iframe');
   iframe.scrolling = 'no';
+  iframe.id = 'code-editor';
   iframe.src = chrome.runtime.getURL('./src/ide.html');
   iframe.style.cssText = 'display:block;' + 'width:100%;border:0;';
 
