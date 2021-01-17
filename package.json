@@ -1,0 +1,25 @@
+{
+  "name": "codechef-ide-extension",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "fix-lint": "prettier --write \"./src/**/*.js\" && eslint --fix \"./src/**/*.js\""
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/sarthaksadh01/Codechef-ide-extension.git"
+  },
+  "author": "sarthak and manorit",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/sarthaksadh01/Codechef-ide-extension/issues"
+  },
+  "homepage": "https://github.com/sarthaksadh01/Codechef-ide-extension#readme",
+  "devDependencies": {
+    "eslint": "^7.18.0",
+    "eslint-config-google": "^0.14.0",
+    "prettier": "^2.2.1"
+  }
+}
