@@ -123,7 +123,7 @@ const goToEditorButton = () => {
   btn.onclick = (e) => {
     e.preventDefault();
     document
-        .getElementById('code-editor')
+        .getElementById('scroll-to-top')
         .scrollIntoView({behavior: 'smooth'});
   };
   document
@@ -144,7 +144,21 @@ const insertIframe = () => {
   const x = document.querySelector('#problem-comments > div > div');
   console.log(document.getElementById('problem-comments'));
   x.prepend(iframe);
-  document.querySelector('#problem-statement > div').hidden = true;
+
+  document.querySelector(
+      '#problem-statement > div > a.button.blue.mathjax-support',
+  ).style.display = 'none';
+
+  const btn=document.createElement('a');
+  btn.classList.add('button', 'blue');
+  btn.innerHTML = 'Scroll To Top';
+  btn.id='scroll-to-top';
+  btn.onclick = (e) => {
+    e.preventDefault();
+    document.body.scrollIntoView({behavior: 'smooth'});
+  };
+  document.querySelector('#problem-statement > div').append(btn);
+
   if (documentPath.length == 5) contestCode = 'PRACTICE';
   else {
     const buttonText = $('.button.blue.right')[0].text;
