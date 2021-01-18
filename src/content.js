@@ -145,9 +145,12 @@ const insertIframe = () => {
   console.log(document.getElementById('problem-comments'));
   x.prepend(iframe);
 
-  document.querySelector(
-      '#problem-statement > div > a.button.blue.mathjax-support',
-  ).style.display = 'none';
+  const selector = '#problem-statement > div > a.button.blue.mathjax-support';
+  waitForEl(selector, () => {
+    document.querySelector(
+        selector,
+    ).style.display = 'none';
+  });
 
   const btn=document.createElement('a');
   btn.classList.add('button', 'blue');
@@ -158,6 +161,11 @@ const insertIframe = () => {
     document.body.scrollIntoView({behavior: 'smooth'});
   };
   document.querySelector('#problem-statement > div').append(btn);
+
+  waitForEl(
+      '#content-regions > header > div > div.large-12.columns > h1',
+      goToEditorButton,
+  );
 
   if (documentPath.length == 5) contestCode = 'PRACTICE';
   else {
