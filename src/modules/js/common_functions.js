@@ -16,7 +16,7 @@ const editor = CodeMirror(document.getElementById('code_editor'), {
   showCursorWhenSelecting: true,
   theme: selectedTheme,
   tabSize: 2,
-  keyMap: "vim",
+  keyMap: 'vim',
 });
 const changeLangUtil = (lang) => {
   selectedLanguage = lang;
