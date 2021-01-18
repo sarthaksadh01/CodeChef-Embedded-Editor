@@ -15,9 +15,9 @@ import {
   resetStatus,
   saveKeyMapPref,
   selectedKeyMap,
-  changeKeyMapUtil
+  changeKeyMapUtil,
 } from './common_functions.js';
-import {themeCode, languageCode,kepMapCodes} from './config.js';
+import {themeCode, languageCode, kepMapCodes} from './config.js';
 
 let isCustomInput = false;
 let isLoading = false;
@@ -115,7 +115,7 @@ sendMessage({
   changeKeyMapUtil(response.keyMap);
   editor.setOption('theme', selectedTheme);
   editor.setOption('mode', selectedLanguage.mode);
-  editor.setOption('keyMap',selectedKeyMap)
+  editor.setOption('keyMap', selectedKeyMap);
   const langIndex = languageCode.findIndex((code) => {
     return selectedLanguage.name == code.name;
   });

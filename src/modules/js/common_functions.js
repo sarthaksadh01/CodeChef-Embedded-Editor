@@ -3,7 +3,7 @@ import {
   languageCode,
   signalTable,
   statusImgs,
-  kepMapCodes
+  kepMapCodes,
 } from './config.js';
 let selectedLanguage = languageCode[0];
 let selectedTheme = themeCode[0];
@@ -32,7 +32,6 @@ const changeThemeUtil = (theme) => {
 const changeKeyMapUtil = (keymap) => {
   selectedKeyMap = keymap;
 };
-
 
 const sendMessage = (data) => {
   return new Promise((resolve, reject) => {
@@ -84,7 +83,6 @@ const saveLanguagePref = (language) => {
   });
 };
 
-
 const saveThemePref = (theme) => {
   selectedTheme = themeCode[theme];
   sendMessage({
@@ -103,7 +101,7 @@ const saveKeyMapPref = (keyMap) => {
     change: 'keyMap',
     value: selectedKeyMap,
   }).then((response) => {
-    editor.setOption('keyMap',selectedKeyMap);
+    editor.setOption('keyMap', selectedKeyMap);
   });
 };
 
@@ -194,5 +192,5 @@ export {
   resizeIframeRequest,
   resetStatus,
   saveKeyMapPref,
-  changeKeyMapUtil
+  changeKeyMapUtil,
 };

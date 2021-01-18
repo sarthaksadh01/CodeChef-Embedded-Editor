@@ -177,6 +177,6 @@ const statusImgs = {
 };
 
 const themeCode = ['eclipse', 'dracula'];
-const kepMapCodes = ['default','vim', 'sublime'];
+const kepMapCodes = ['default', 'vim', 'sublime'];
 
-export {themeCode, languageCode, signalTable, statusImgs,kepMapCodes};
+export {themeCode, languageCode, signalTable, statusImgs, kepMapCodes};

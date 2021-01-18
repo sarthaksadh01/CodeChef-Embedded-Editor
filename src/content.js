@@ -189,7 +189,7 @@ const waitForEl = function(selector, callback) {
 };
 
 const resizeIframe = (iframe, len) => {
-  iframe.height = (parseInt(len)+25) + 'px';
+  iframe.height = parseInt(len) + 25 + 'px';
 };
 
 chrome.runtime.onMessage.addListener(function(
@@ -232,7 +232,9 @@ chrome.runtime.onMessage.addListener(function(
   } else if (type == 'getPref') {
     const lang = localStorage.getItem('language');
     const langName = lang ? JSON.parse(lang).name : '';
-    const keyMap = localStorage.getItem('keyMap')?localStorage.getItem('keyMap'):'default';
+    const keyMap = localStorage.getItem('keyMap') ?
+      localStorage.getItem('keyMap') :
+      'default';
     sendResponse({
       theme: localStorage.getItem('theme'),
       language: lang,
