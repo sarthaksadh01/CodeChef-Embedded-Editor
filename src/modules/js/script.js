@@ -130,20 +130,12 @@ sendMessage({
 
 $('#theme_select').on('change', (e) => {
   // eslint-disable-next-line no-invalid-this
-<<<<<<< HEAD
   saveThemePref(e.target.value);
-=======
-  saveThemePref($('#theme_select').val());
->>>>>>> dc98e9a9f415d8d1b11d9ce8240bb95390b8fdb0
 });
 
 $('#language_select').on('change', (e) => {
   // eslint-disable-next-line no-invalid-this
-<<<<<<< HEAD
   saveLanguagePref(e.target.value);
-=======
-  saveLanguagePref($('#language_select').val());
->>>>>>> dc98e9a9f415d8d1b11d9ce8240bb95390b8fdb0
 });
 
 editor.on('change', (editor) => {
