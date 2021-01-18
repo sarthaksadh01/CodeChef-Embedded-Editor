@@ -4,6 +4,7 @@
 
 Don't worry, Codechef Embedded Editor is here. Install this extension from [Chrome Web Store](https://chrome.google.com/webstore).
 
+![](Screenshots/submit-code.png)
 ## Supported Languages
  - C
  - C++14
@@ -25,3 +26,9 @@ Install the extension from [Chrome Web Store](https://chrome.google.com/webstore
 - Uses CodeChef API for all the Run and Submit Code
 
 ## Screenshots
+For more screenshots, See [here](screenshots.md)
+
+## Found any bug?
+Feel free to open up issue [here](https://github.com/sarthaksadh01/Codechef-ide-extension/issues) and we will try to resolve it.
+
+Happy Coding!!
