@@ -128,14 +128,14 @@ sendMessage({
   editor.getDoc().setValue(code);
 });
 
-$('#theme_select').on('change', () => {
+$('#theme_select').on('change', (e) => {
   // eslint-disable-next-line no-invalid-this
-  saveThemePref(this.value);
+  saveThemePref(e.target.value);
 });
 
-$('#language_select').on('change', () => {
+$('#language_select').on('change', (e) => {
   // eslint-disable-next-line no-invalid-this
-  saveLanguagePref(this.value);
+  saveLanguagePref(e.target.value);
 });
 
 editor.on('change', (editor) => {
