@@ -13,8 +13,11 @@ import {
   changeThemeUtil,
   resizeIframeRequest,
   resetStatus,
+  saveKeyMapPref,
+  selectedKeyMap,
+  changeKeyMapUtil
 } from './common_functions.js';
-import {themeCode, languageCode} from './config.js';
+import {themeCode, languageCode,kepMapCodes} from './config.js';
 
 let isCustomInput = false;
 let isLoading = false;
@@ -109,13 +112,18 @@ sendMessage({
   changeLangUtil(
     response.language ? JSON.parse(response.language) : languageCode[0],
   );
+  changeKeyMapUtil(response.keyMap);
   editor.setOption('theme', selectedTheme);
   editor.setOption('mode', selectedLanguage.mode);
+  editor.setOption('keyMap',selectedKeyMap)
   const langIndex = languageCode.findIndex((code) => {
     return selectedLanguage.name == code.name;
   });
   const themeIndex = themeCode.findIndex((code) => {
     return selectedTheme == code;
+  });
+  const keyMapIndex = kepMapCodes.findIndex((code) => {
+    return selectedKeyMap == code;
   });
   const code =
     response.code == null ||
@@ -125,6 +133,7 @@ sendMessage({
       response.code;
   $(`#language_select option[value=${langIndex}]`).prop('selected', true);
   $(`#theme_select option[value=${themeIndex}]`).prop('selected', true);
+  $(`#keymap_select option[value=${keyMapIndex}]`).prop('selected', true);
   editor.getDoc().setValue(code);
 });
 
@@ -137,7 +146,10 @@ $('#language_select').on('change', (e) => {
   // eslint-disable-next-line no-invalid-this
   saveLanguagePref(e.target.value);
 });
-
+$('#keymap_select').on('change', (e) => {
+  // eslint-disable-next-line no-invalid-this
+  saveKeyMapPref(e.target.value);
+});
 editor.on('change', (editor) => {
   saveCode();
 });
@@ -155,14 +167,14 @@ customInput.onchange = () => {
   resizeIframeRequest();
 };
 
-editor.on('keyup', function(cm, event) {
-  if (
-    /* Enables keyboard navigation in autocomplete list*/
-    !cm.state.completionActive &&
-    event.keyCode > 64 &&
-    event.keyCode < 91
-  ) {
-    // only when a letter key is pressed
-    CodeMirror.commands.autocomplete(cm, null, {completeSingle: false});
-  }
-});
+// editor.on('keyup', function(cm, event) {
+//   if (
+//     /* Enables keyboard navigation in autocomplete list*/
+//     !cm.state.completionActive &&
+//     event.keyCode > 64 &&
+//     event.keyCode < 91
+//   ) {
+//     // only when a letter key is pressed
+//     CodeMirror.commands.autocomplete(cm, null, {completeSingle: false});
+//   }
+// });

@@ -177,5 +177,6 @@ const statusImgs = {
 };
 
 const themeCode = ['xq-light', 'dracula'];
+const kepMapCodes = ['default','vim', 'sublime'];
 
-export {themeCode, languageCode, signalTable, statusImgs};
+export {themeCode, languageCode, signalTable, statusImgs,kepMapCodes};

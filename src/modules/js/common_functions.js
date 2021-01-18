@@ -3,9 +3,12 @@ import {
   languageCode,
   signalTable,
   statusImgs,
+  kepMapCodes
 } from './config.js';
 let selectedLanguage = languageCode[0];
 let selectedTheme = themeCode[0];
+let selectedKeyMap = kepMapCodes[0];
+
 // eslint-disable-next-line new-cap
 const editor = CodeMirror(document.getElementById('code_editor'), {
   value: '',
@@ -16,7 +19,7 @@ const editor = CodeMirror(document.getElementById('code_editor'), {
   showCursorWhenSelecting: true,
   theme: selectedTheme,
   tabSize: 2,
-  keyMap: 'vim',
+  keyMap: 'default',
 });
 const changeLangUtil = (lang) => {
   selectedLanguage = lang;
@@ -25,6 +28,11 @@ const changeLangUtil = (lang) => {
 const changeThemeUtil = (theme) => {
   selectedTheme = theme;
 };
+
+const changeKeyMapUtil = (keymap) => {
+  selectedKeyMap = keymap;
+};
+
 
 const sendMessage = (data) => {
   return new Promise((resolve, reject) => {
@@ -76,6 +84,7 @@ const saveLanguagePref = (language) => {
   });
 };
 
+
 const saveThemePref = (theme) => {
   selectedTheme = themeCode[theme];
   sendMessage({
@@ -84,6 +93,17 @@ const saveThemePref = (theme) => {
     value: selectedTheme,
   }).then((response) => {
     editor.setOption('theme', selectedTheme);
+  });
+};
+
+const saveKeyMapPref = (keyMap) => {
+  selectedKeyMap = kepMapCodes[keyMap];
+  sendMessage({
+    type: 'setPref',
+    change: 'keyMap',
+    value: selectedKeyMap,
+  }).then((response) => {
+    editor.setOption('keyMap',selectedKeyMap);
   });
 };
 
@@ -167,9 +187,12 @@ export {
   selectedLanguage,
   selectedTheme,
   editor,
+  selectedKeyMap,
   changeLangUtil,
   sendMessage,
   changeThemeUtil,
   resizeIframeRequest,
   resetStatus,
+  saveKeyMapPref,
+  changeKeyMapUtil
 };

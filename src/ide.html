@@ -48,7 +48,17 @@
                 <label for="floatingSelect">Select Theme</label>
               </div>
             </div>
-            <div class="col-6 align-self-center">
+            <div class="col-3">
+              <div class="form-floating">
+                <select class="form-select" id="keymap_select">
+                  <option value="0">Default</option>
+                  <option value="1">Vim</option>
+                  <option value="2">Sublime</option>
+                </select>
+                <label for="floatingSelect">Select Keymap</label>
+              </div>
+            </div>
+            <div class="col-3 align-self-center">
               <img src="" width="25" class="img-fluid" id="statusImgs" style="float: right" />
               <label id="imgLabel" for="statusImgs" style="float: right; margin-right: 10px"></label>
             </div>
@@ -149,6 +159,7 @@
   <script src="./lib/codemirror/hint/show-hint.js"></script>
   <script src="./lib/codemirror/hint/anyword-hint.js"></script>
   <script src="./lib/codemirror/keymap/vim.js"></script>
+  <script src="./lib/codemirror/keymap/sublime.js"></script>
   <script src="./lib/codemirror/dialog/dialog.js"></script>
   <script src="./lib/codemirror/search/search.js"></script>
   <script type="module" src="./modules/js/script.js"></script>
