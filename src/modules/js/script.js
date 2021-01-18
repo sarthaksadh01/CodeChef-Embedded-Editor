@@ -130,12 +130,12 @@ sendMessage({
 
 $('#theme_select').on('change', () => {
   // eslint-disable-next-line no-invalid-this
-  saveThemePref(this.value);
+  saveThemePref($('#theme_select').val());
 });
 
 $('#language_select').on('change', () => {
   // eslint-disable-next-line no-invalid-this
-  saveLanguagePref(this.value);
+  saveLanguagePref($('#language_select').val());
 });
 
 editor.on('change', (editor) => {
