@@ -223,6 +223,9 @@ chrome.runtime.onMessage.addListener(function(
       else if (res.status == 'error') {
         sendResponse(res);
       }
+    }).catch((err) => {
+      console.log(err);
+      sendResponse(err);
     });
     console.log(request);
   } else if (type == 'resize') {

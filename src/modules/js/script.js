@@ -51,6 +51,10 @@ $('#submit_code').click(function() {
       $('#output').val(response.errors.toString());
       $('#outputDiv').show();
       $('#tableDiv').hide();
+    } else if (response.status == 403) {
+      $('#output').val('Access Denied, Please Log in');
+      $('#outputDiv').show();
+      $('#tableDiv').hide();
     } else {
       console.log(response.status);
       $('#output').val('');
