@@ -142,7 +142,7 @@ const setStatus = (resultCode) => {
 };
 
 const setStats = (res) => {
-  console.log(res);
+  // console.log(res);
   if (res.time) {
     document.querySelector('#time').innerHTML = res.time;
     $('#timeDiv').show();

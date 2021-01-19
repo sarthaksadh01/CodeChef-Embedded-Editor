@@ -67,7 +67,7 @@ $('#submit_code').click(function() {
         sendMessage({type: 'showLogin'});
       }, 1000);
     } else {
-      console.log(response.status);
+      // console.log(response.status);
 
       $('#output').val('');
       $('#outputDiv').hide();
@@ -111,7 +111,7 @@ $('#run_code').click(function() {
     enableButton();
     $('#run_code_text').text('Run Code');
     $('#run_code_loading').hide();
-    console.log(response);
+    // console.log(response);
     $('#outputDiv').show();
     $('#tableDiv').hide();
     if (response.output != '') $('#output').val(response.output);
@@ -175,7 +175,6 @@ editor.on('change', (editor) => {
 
 const customInput = document.querySelector('#customInput');
 customInput.onchange = () => {
-  console.log();
   if (customInput.checked) {
     isCustomInput = true;
     $('#inputDiv').show();

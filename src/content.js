@@ -4,8 +4,9 @@ const elt = document.createElement('script');
 elt.innerHTML = script;
 document.body.appendChild(elt);
 const token = $('body').attr('csrf');
-console.log(token);
+// console.log(token);
 $('body').removeAttr('csrf');
+document.body.removeChild(elt);
 
 let documentPath;
 let problemCode;
@@ -67,7 +68,7 @@ const sleep = (ms) => {
 
 const getCodeRunStatus = async (timestamp, sendResponse, count = 0) => {
   const url = `https://www.codechef.com/api/ide/run/${problemCode}?timestamp=${timestamp}`;
-  console.log(url);
+  // console.log(url);
   let res = await getRequest(url);
   while (!res.status.toLowerCase().includes('ok') && count < 20) {
     await sleep(2000);
@@ -93,7 +94,6 @@ const getCodeSubmitStatus = async (solId, sendResponse) => {
             'X-CSRF-TOKEN': token,
           },
           success: function(e) {
-            console.log(e);
             resolve(e);
           },
           error: function(e) {
@@ -142,7 +142,7 @@ const insertIframe = () => {
   iframe.style.cssText = 'display:block;' + 'width:100%;border:0;';
 
   const x = document.querySelector('#problem-comments > div > div');
-  console.log(document.getElementById('problem-comments'));
+  // console.log(document.getElementById('problem-comments'));
   x.prepend(iframe);
 
   const selector =
@@ -172,8 +172,8 @@ const insertIframe = () => {
     if (buttonText.toLowerCase().includes('practice')) {
       contestCode = 'PRACTICE';
     } else contestCode = documentPath[documentPath.length - 3];
-    console.log(contestCode);
-    console.log(buttonText);
+    // console.log(contestCode);
+    // console.log(buttonText);
   }
   resizeIframe(iframe, 1000);
 };
@@ -214,7 +214,7 @@ chrome.runtime.onMessage.addListener(function(
     sendResponse({status: 'ok'});
   } else if (type == 'submit') {
     delete request.input;
-    console.log('submit');
+    // console.log('submit');
     request.problemCode = problemCode;
     request.contestCode = contestCode;
     const url = '/api/ide/submit';
@@ -231,7 +231,7 @@ chrome.runtime.onMessage.addListener(function(
         });
     console.log(request);
   } else if (type == 'resize') {
-    console.log(request);
+    // console.log(request);
     resizeIframe(iframe, request.len);
     sendResponse({status: 'OK'});
   } else if (type == 'getPref') {
