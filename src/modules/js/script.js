@@ -53,6 +53,7 @@ $('#submit_code').click(function() {
       $('#errorDiv').hide();
     } else {
       console.log(response.status);
+      $('#output').val('');
       $('#outputDiv').hide();
       $('#errorDiv').show();
       if (response.status.result_code != 'compile') {
