@@ -50,14 +50,14 @@ $('#submit_code').click(function() {
     if (response.status == 'error') {
       $('#output').val(response.errors.toString());
       $('#outputDiv').show();
-      $('#errorDiv').hide();
+      $('#tableDiv').hide();
     } else {
       console.log(response.status);
       $('#output').val('');
       $('#outputDiv').hide();
-      $('#errorDiv').show();
+      $('#tableDiv').show();
       if (response.status.result_code != 'compile') {
-        const tableDiv = document.querySelector('#errorDiv');
+        const tableDiv = document.querySelector('#tableDiv');
         tableDiv.innerHTML = response.table;
         const table = $('.status-table');
         table.addClass('table');
@@ -95,7 +95,7 @@ $('#run_code').click(function() {
     $('#run_code_loading').hide();
     console.log(response);
     $('#outputDiv').show();
-    $('#errorDiv').hide();
+    $('#tableDiv').hide();
     if (response.output != '') $('#output').val(response.output);
     else $('#output').val(response.cmpinfo);
     if (response.stderr != '') {
