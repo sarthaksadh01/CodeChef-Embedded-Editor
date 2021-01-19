@@ -1,6 +1,6 @@
 {
-    "name": "CodeChef ide ",
-    "description": "Add IDE to problem page",
+    "name": "Codechef Embedded Editor",
+    "description": "Adds IDE support to codechef problem page",
     "version": "0.1",
     "permissions": [
         "tabs",
