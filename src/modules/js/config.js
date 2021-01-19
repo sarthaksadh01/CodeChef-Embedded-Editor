@@ -156,7 +156,10 @@ const statusImgs = {
   error: {
     url: '',
     message:
-      'Internal Error. This might be due to heavy load on our servers. Please try later. Note that you can also directly Submit the code without Running it, if you wish to.',
+      'Internal Error. This might be due to heavy load on our servers.' +
+      ' Please try later.' +
+      ' Note that you can also directly Submit the code without Running it,' +
+      ' if you wish to.',
   },
 };
 
