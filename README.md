@@ -4,7 +4,7 @@
 
 Don't worry, Codechef Embedded Editor is here. Install this extension from [here](https://github.com/sarthaksadh01/CodeChef-Embedded-Editor/releases/tag/v0.1).
 
-![](Screenshots/submit-code.png)
+![](Screenshots/editor.png)
 ## Supported Languages
  - C
  - C++14
