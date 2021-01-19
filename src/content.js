@@ -218,15 +218,17 @@ chrome.runtime.onMessage.addListener(function(
     request.problemCode = problemCode;
     request.contestCode = contestCode;
     const url = '/api/ide/submit';
-    postRequest(url, request).then((res) => {
-      if (res.status == 'OK') getCodeSubmitStatus(res.upid, sendResponse);
-      else if (res.status == 'error') {
-        sendResponse(res);
-      }
-    }).catch((err) => {
-      console.log(err);
-      sendResponse(err);
-    });
+    postRequest(url, request)
+        .then((res) => {
+          if (res.status == 'OK') getCodeSubmitStatus(res.upid, sendResponse);
+          else if (res.status == 'error') {
+            sendResponse(res);
+          }
+        })
+        .catch((err) => {
+          console.log(err);
+          sendResponse(err);
+        });
     console.log(request);
   } else if (type == 'resize') {
     console.log(request);
