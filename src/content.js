@@ -257,6 +257,10 @@ chrome.runtime.onMessage.addListener(function(
     sendResponse({
       code: localStorage.getItem(`${problemCode}_${request.language}`),
     });
+  } else if (type == 'showLogin') {
+    $('.login-button').addClass('hovered');
+    $('#edit-name-wrapper input').focus();
+    sendResponse(true);
   }
   return true;
 });
