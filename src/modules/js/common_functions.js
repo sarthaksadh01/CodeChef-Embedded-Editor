@@ -123,14 +123,21 @@ const resetStatus = () => {
   // document.querySelector("#statusBtn").innerHTML = "";
   $('#statusDiv').hide();
 };
-const setStatus = (resultCode, reset = 0) => {
+const setStatus = (resultCode) => {
   document.querySelector('#statusImgs').src = document.querySelector(
       '#res_image',
   ).src = statusImgs[resultCode].url;
-  document.querySelector('#statusImgs').title = document.querySelector(
-      '#imgLabel',
-  ).innerHTML = document.querySelector('#res_text').innerHTML =
-    statusImgs[resultCode].message;
+  if (statusImgs[resultCode].message.length <= 20) {
+    document.querySelector('#statusImgs').title = document.querySelector(
+        '#imgLabel',
+    ).innerHTML = document.querySelector('#res_text').innerHTML =
+      statusImgs[resultCode].message;
+  } else {
+    if ($('#output').val() == '') {
+      $('#output').val(statusImgs[resultCode].message);
+      $('#outputDiv').show();
+    }
+  }
   $('#statusDiv').show();
 };
 
@@ -153,7 +160,8 @@ const setStats = (res) => {
   ) {
     $('#signalDiv').show();
     if (Number.isInteger(res.signal)) {
-      document.querySelector('#signal').innerHTML = signalTable[res.signal];
+      document.querySelector('#signal').innerHTML =
+        signalTable[res.signal] || 'NZEC';
     } else document.querySelector('#signal').innerHTML = res.signal;
   } else $('#signalDiv').hide();
   if (res.result_code) {

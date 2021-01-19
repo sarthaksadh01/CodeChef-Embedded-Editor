@@ -2,7 +2,7 @@
 
 *Don't like going to next page for submitting problems on codechef again and again? Want some editor embedded in codechef same as hackerearth or leetcode?*
 
-Don't worry, Codechef Embedded Editor is here. Install this extension from [Chrome Web Store](https://chrome.google.com/webstore).
+Don't worry, Codechef Embedded Editor is here. Install this extension from [here](build/main.crx).
 
 ![](Screenshots/submit-code.png)
 ## Supported Languages
@@ -14,7 +14,7 @@ Don't worry, Codechef Embedded Editor is here. Install this extension from [Chro
  - Java
 
 ## Usage
-Install the extension from [Chrome Web Store](https://chrome.google.com/webstore) and it will do the rest
+Install the extension from [here](build/main.crx) and it will do the rest
 
 ## Features
 - Auto Save Code(Code is saved in codechef site data only)
@@ -29,6 +29,6 @@ Install the extension from [Chrome Web Store](https://chrome.google.com/webstore
 For more screenshots, See [here](screenshots.md)
 
 ## Found any bug?
-Feel free to open up issue [here](https://github.com/sarthaksadh01/Codechef-ide-extension/issues) and we will try to resolve it.
+Feel free to open up issue [here](https://github.com/sarthaksadh01/CodeChef-Embedded-Editor/issues) and we will try to resolve it.
 
 Happy Coding!!

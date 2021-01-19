@@ -223,6 +223,9 @@ chrome.runtime.onMessage.addListener(function(
       else if (res.status == 'error') {
         sendResponse(res);
       }
+    }).catch((err) => {
+      console.log(err);
+      sendResponse(err);
     });
     console.log(request);
   } else if (type == 'resize') {
@@ -254,6 +257,10 @@ chrome.runtime.onMessage.addListener(function(
     sendResponse({
       code: localStorage.getItem(`${problemCode}_${request.language}`),
     });
+  } else if (type == 'showLogin') {
+    $('.login-button').addClass('hovered');
+    $('#edit-name-wrapper input').focus();
+    sendResponse(true);
   }
   return true;
 });

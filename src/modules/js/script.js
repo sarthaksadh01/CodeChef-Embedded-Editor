@@ -31,12 +31,17 @@ $('#submit_code_loading').hide();
 
 $('#submit_code').click(function() {
   resetStatus();
+
   if (isLoading) return;
+
   disableButton();
+
   isLoading = true;
+
   const input = isCustomInput ? $('#input').val() : '';
   $('#submit_code_text').text('Submitting...');
   $('#submit_code_loading').show();
+
   sendMessage({
     sourceCode: editor.getValue(),
     input,
@@ -44,19 +49,32 @@ $('#submit_code').click(function() {
     type: 'submit',
   }).then((response) => {
     isLoading = false;
+
     enableButton();
+
     $('#submit_code_text').text('Submit Code');
     $('#submit_code_loading').hide();
+
     if (response.status == 'error') {
       $('#output').val(response.errors.toString());
       $('#outputDiv').show();
-      $('#errorDiv').hide();
+      $('#tableDiv').hide();
+    } else if (response.status == 403) {
+      $('#output').val('Access Denied, Please Log in');
+      $('#outputDiv').show();
+      $('#tableDiv').hide();
+      setTimeout(() => {
+        sendMessage({type: 'showLogin'});
+      }, 1000);
     } else {
       console.log(response.status);
+
+      $('#output').val('');
       $('#outputDiv').hide();
-      $('#errorDiv').show();
+      $('#tableDiv').show();
+
       if (response.status.result_code != 'compile') {
-        const tableDiv = document.querySelector('#errorDiv');
+        const tableDiv = document.querySelector('#tableDiv');
         tableDiv.innerHTML = response.table;
         const table = $('.status-table');
         table.addClass('table');
@@ -66,6 +84,7 @@ $('#submit_code').click(function() {
         // use response.status.error_link and
         // extract the error message from the webpage
       }
+
       setStats(response.status);
       document.querySelector('#customInput').checked = false;
       $('#inputDiv').hide();
@@ -94,7 +113,7 @@ $('#run_code').click(function() {
     $('#run_code_loading').hide();
     console.log(response);
     $('#outputDiv').show();
-    $('#errorDiv').hide();
+    $('#tableDiv').hide();
     if (response.output != '') $('#output').val(response.output);
     else $('#output').val(response.cmpinfo);
     if (response.stderr != '') {
