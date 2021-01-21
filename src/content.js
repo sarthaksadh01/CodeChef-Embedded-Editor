@@ -145,12 +145,6 @@ const insertIframe = () => {
   // console.log(document.getElementById('problem-comments'));
   x.prepend(iframe);
 
-  const selector =
-    '#problem-statement > div > a.button.blue.mathjax-support';
-  waitForEl(selector, () => {
-    document.querySelector(selector).style.display = 'none';
-  });
-
   const btn = document.createElement('a');
   btn.classList.add('button', 'blue');
   btn.innerHTML = 'Scroll To Top';
@@ -159,7 +153,15 @@ const insertIframe = () => {
     e.preventDefault();
     document.body.scrollIntoView({behavior: 'smooth'});
   };
-  document.querySelector('#problem-statement > div').append(btn);
+
+  const selector =
+    '#problem-statement > div > a.button.blue.mathjax-support';
+
+  waitForEl(selector, () => {
+    const x = document.querySelector(selector);
+    x.insertAdjacentElement('afterend', btn);
+    x.style.display = 'none';
+  });
 
   waitForEl(
       '#content-regions > header > div > div.large-12.columns > h1',
