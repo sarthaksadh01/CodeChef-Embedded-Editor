@@ -1,5 +1,11 @@
 # Codechef Embedded Editor
 
+[![](https://img.shields.io/chrome-web-store/v/dojpjfdmnbipokcblfgnknmimgmbkhcj)](https://chrome.google.com/webstore/detail/codechef-embedded-editor/dojpjfdmnbipokcblfgnknmimgmbkhcj)
+[![](https://img.shields.io/chrome-web-store/users/dojpjfdmnbipokcblfgnknmimgmbkhcj)](https://chrome.google.com/webstore/detail/codechef-embedded-editor/dojpjfdmnbipokcblfgnknmimgmbkhcj)
+[![](https://img.shields.io/chrome-web-store/stars/dojpjfdmnbipokcblfgnknmimgmbkhcj)](https://chrome.google.com/webstore/detail/codechef-embedded-editor/dojpjfdmnbipokcblfgnknmimgmbkhcj)
+[![](https://img.shields.io/chrome-web-store/rating-count/dojpjfdmnbipokcblfgnknmimgmbkhcj)](https://chrome.google.com/webstore/detail/codechef-embedded-editor/dojpjfdmnbipokcblfgnknmimgmbkhcj)
+
+
 *Don't like going to next page for submitting problems on codechef again and again? Want some editor embedded in codechef same as hackerearth or leetcode?*
 
 Don't worry, Codechef Embedded Editor is here. Install this extension from [here](https://chrome.google.com/webstore/detail/codechef-embedded-editor/dojpjfdmnbipokcblfgnknmimgmbkhcj).
